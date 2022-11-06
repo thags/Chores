@@ -15,7 +15,7 @@ jobs:
     steps:
     - name: Get current date
       id: date
-      run: echo "{date}={$(date +'%Y.%m.%d').$env:GITHUB_RUN_NUMBER"}" >> $GITHUB_OUTPUT
+      run: echo "{date}={$(date +'%Y.%m.%d').$env:GITHUB_RUN_NUMBER}" >> $GITHUB_OUTPUT
 
     - name: Test with environment variables
       run: echo $TAG_NAME
