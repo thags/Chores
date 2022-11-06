@@ -5,31 +5,29 @@ export class FetchData extends Component {
 
   constructor(props) {
     super(props);
-    this.state = { forecasts: [], loading: true };
+    this.state = { chores: [], loading: true };
   }
 
   componentDidMount() {
-    this.populateWeatherData();
+    this.populateChoreData();
   }
 
-  static renderForecastsTable(forecasts) {
+  static renderChoresTable(chores) {
     return (
       <table className='table table-striped' aria-labelledby="tabelLabel">
         <thead>
           <tr>
-            <th>Date</th>
-            <th>Temp. (C)</th>
-            <th>Temp. (F)</th>
-            <th>Summary</th>
+            <th>Name</th>
+            <th>Note</th>
+            <th>Completion Date</th>
           </tr>
         </thead>
         <tbody>
-          {forecasts.map(forecast =>
-            <tr key={forecast.date}>
-              <td>{forecast.date}</td>
-              <td>{forecast.temperatureC}</td>
-              <td>{forecast.temperatureF}</td>
-              <td>{forecast.summary}</td>
+          {chores.map(chore =>
+            <tr key={chore.name}>
+              <td>{chore.name}</td>
+              <td>{chore.note}</td>
+              <td>{chore.completiondate}</td>
             </tr>
           )}
         </tbody>
@@ -40,20 +38,20 @@ export class FetchData extends Component {
   render() {
     let contents = this.state.loading
       ? <p><em>Loading...</em></p>
-      : FetchData.renderForecastsTable(this.state.forecasts);
+      : FetchData.renderChoresTable(this.state.chores);
 
     return (
       <div>
-        <h1 id="tabelLabel" >Weather forecast</h1>
+        <h1 id="tabelLabel" >Chores</h1>
         <p>This component demonstrates fetching data from the server.</p>
         {contents}
       </div>
     );
   }
 
-  async populateWeatherData() {
-    const response = await fetch('weatherforecast');
+  async populateChoreData() {
+    const response = await fetch('chore');
     const data = await response.json();
-    this.setState({ forecasts: data, loading: false });
+    this.setState({ chores: data, loading: false });
   }
 }
