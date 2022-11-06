@@ -1,7 +1,7 @@
 # Chores
 
 # Immediate TODO
-- Add a simple API for the chores db
+
 - Add a react front end for the chores API
 - Add due dates to chores
 
@@ -14,3 +14,7 @@
 - Use authentication to create users
 - Share chore list between users
 - Switch out of sqlite for prod (keep sqlite for dev?) (cloud solution for prod?)
+
+
+# Finished
+- Add a simple API for the chores db

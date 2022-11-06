@@ -1,14 +1,16 @@
 ﻿using Chores.Controllers;
+using Chores.Interfaces;
 
 var sqlController = new sqliteController();
 sqlController.CreateTables();
-sqlController.AddChore(new Chores.Models.Chore { Name = "test", Notes = "None", CompletionDate = DateTime.Now });
+//sqlController.AddChore(new Chores.Models.Chore { Name = "test", Note = "None", CompletionDate = DateTime.Now });
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
 builder.Services.AddControllersWithViews();
+builder.Services.AddTransient<IDBInterface, sqliteController>();
 
 var app = builder.Build();
 

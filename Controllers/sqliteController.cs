@@ -54,7 +54,7 @@ namespace Chores.Controllers
                                 {
                                     Id = reader.GetInt32(0),
                                     Name = reader.GetString(1),
-                                    Notes = reader.GetString(2),
+                                    Note = reader.GetString(2),
                                     CompletionDate = reader.GetDateTime(3)
                                 });
                         }
@@ -71,7 +71,7 @@ namespace Chores.Controllers
                 using (var command = connection.CreateCommand())
                 {
                     connection.Open();
-                    command.CommandText = $"INSERT INTO chores(Name, Notes, CompletionDate) VALUES('{newChore.Name}','{newChore.Notes}', '{newChore.CompletionDate}')";
+                    command.CommandText = $"INSERT INTO chores(Name, Notes, CompletionDate) VALUES('{newChore.Name}','{newChore.Note}', '{newChore.CompletionDate}')";
 
                     try
                     {
@@ -92,7 +92,7 @@ namespace Chores.Controllers
                 using (var command = connection.CreateCommand())
                 {
                     connection.Open();
-                    command.CommandText = $"UPDATE chores SET Name = '{editedChore.Name}', Notes = '{editedChore.Notes}', CompletionDate='{editedChore.CompletionDate}' WHERE Id = '{editedChore.Id}'";
+                    command.CommandText = $"UPDATE chores SET Name = '{editedChore.Name}', Notes = '{editedChore.Note}', CompletionDate='{editedChore.CompletionDate}' WHERE Id = '{editedChore.Id}'";
 
                     try
                     {

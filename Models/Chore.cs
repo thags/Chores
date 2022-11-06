@@ -5,7 +5,7 @@ namespace Chores.Models
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public string Notes { get; set; }
+        public string? Note { get; set; }
         public DateTime CompletionDate { get; set; }
     }
 }
