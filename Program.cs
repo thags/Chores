@@ -2,7 +2,7 @@
 
 var sqlController = new sqliteController();
 sqlController.CreateTables();
-sqlController.AddChore(new Chores.Models.Chore { Name = "test", Notes = "None", CompletionDate = DateTime.Now });
+//sqlController.AddChore(new Chores.Models.Chore { Name = "test", Note = "None", CompletionDate = DateTime.Now });
 
 var builder = WebApplication.CreateBuilder(args);
 
