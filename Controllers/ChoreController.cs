@@ -8,38 +8,38 @@ namespace Chores.Controllers;
 [Route("[controller]")]
 public class ChoreController : ControllerBase
 {
-    private sqliteController choreDB;
+    private IDBInterface _choreDB;
 
     private readonly ILogger<ChoreController> _logger;
 
-    public ChoreController(ILogger<ChoreController> logger)
+    public ChoreController(ILogger<ChoreController> logger, IDBInterface choreDB)
     {
         _logger = logger;
-        choreDB = new sqliteController();
+        _choreDB = choreDB;
     }
 
     [HttpGet]
     public List<Chore> Get()
     {
-        return choreDB.GetAllChores();
+        return _choreDB.GetAllChores();
     }
 
     [HttpDelete]
     public void Delete(int id)
     {
-        choreDB.DeleteChore(id);
+        _choreDB.DeleteChore(id);
     }
 
     [HttpPost]
     public void Create(Chore newChore)
     {
-        choreDB.AddChore(newChore);
+        _choreDB.AddChore(newChore);
     }
 
     [HttpPut]
     public void Update(Chore updatedChore)
     {
-        choreDB.EditChore(updatedChore);
+        _choreDB.EditChore(updatedChore);
     }
 }
 

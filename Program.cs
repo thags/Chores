@@ -1,4 +1,5 @@
 ﻿using Chores.Controllers;
+using Chores.Interfaces;
 
 var sqlController = new sqliteController();
 sqlController.CreateTables();
@@ -9,6 +10,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 builder.Services.AddControllersWithViews();
+builder.Services.AddTransient<IDBInterface, sqliteController>();
 
 var app = builder.Build();
 
