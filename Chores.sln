@@ -3,14 +3,14 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.3.32929.385
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Chores", "Chores.csproj", "{FE92B112-0B46-4ABA-B437-A986A5D8EA2B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Chores", "Chores.app\Chores.csproj", "{FE92B112-0B46-4ABA-B437-A986A5D8EA2B}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{934B0632-75B5-470E-8CC5-458C18EF8784}"
 	ProjectSection(SolutionItems) = preProject
 		Chores.sln = Chores.sln
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chores.Tests", "..\Chores.Tests\Chores.Tests\Chores.Tests.csproj", "{51D98359-F3C1-4F99-9639-78AD69C838E8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Chores.Tests", "Chores.Tests\Chores.Tests.csproj", "{51D98359-F3C1-4F99-9639-78AD69C838E8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
