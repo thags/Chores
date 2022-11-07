@@ -32,6 +32,8 @@ Chores.Tests/obj/
 
 
 # Visual Studio 2015 cache/options directory
+*/*/.vs/
+*/.vs
 .vs/
 /wwwroot/dist/
 
