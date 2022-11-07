@@ -23,6 +23,13 @@ bin/
 Bin/
 obj/
 Obj/
+*/obj/*
+*/Obj/*
+*/bin/*
+*/Bin/*
+Chores.Tests/bin/
+Chores.Tests/obj/
+
 
 # Visual Studio 2015 cache/options directory
 .vs/
