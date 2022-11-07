@@ -20,14 +20,18 @@ export class FetchData extends Component {
             <th>Name</th>
             <th>Note</th>
             <th>Completion Date</th>
+            <th>Due Next</th>
+            <th>Due Every</th>
           </tr>
         </thead>
         <tbody>
           {chores.map(chore =>
-            <tr key={chore.name}>
-              <td>{chore.name}</td>
-              <td>{chore.note}</td>
-              <td>{chore.completiondate}</td>
+              <tr key={chore.id}>
+                  <td>{chore.name}</td>
+                  <td>{chore.note}</td>
+                  <td>{chore.completionDate}</td>
+                  <td>{chore.nextDueDate}</td>
+                  <td>{chore.recurrence}</td>
             </tr>
           )}
         </tbody>

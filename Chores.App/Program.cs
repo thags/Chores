@@ -6,7 +6,14 @@ using Microsoft.Extensions.Hosting;
 
 var sqlController = new sqliteController();
 sqlController.CreateTables();
-//sqlController.AddChore(new Chores.Models.Chore { Name = "test", Note = "None", CompletionDate = DateTime.Now });
+//sqlController.AddChore(new Chores.Models.Chore
+//{
+//    Name = "test",
+//    Note = "None",
+//    CompletionDate = DateTime.Today,
+//    NextDueDate = DateTime.Today.AddDays(7),
+//    Recurrence = TimeSpan.FromDays(7)
+//}); ;
 
 var builder = WebApplication.CreateBuilder(args);
 

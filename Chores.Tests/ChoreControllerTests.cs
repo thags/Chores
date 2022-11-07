@@ -10,19 +10,20 @@ namespace Chores.Tests
     public class ChoreControllerTests
     {
         private readonly Mock<ILogger<ChoreController>> _logger = new();
+        private Chore _testChore = new Chore
+        {
+            Id = 3,
+            Name = "Adding test chore",
+            Note = "Delete me, please!",
+            CompletionDate = DateTime.Today,
+            NextDueDate = DateTime.Today.AddDays(-1),
+            Recurrence = TimeSpan.FromDays(7)
+        };
 
         [Test]
         public void Should_Call_Db_Interface()
         {
             // Arrange
-            Chore testChore = new Chore
-            {
-                Id = 3,
-                Name = "Adding test chore",
-                Note = "Delete me, please!",
-                CompletionDate = DateTime.Today
-            };
-
             Mock<IDBInterface> _db = new();
 
             _db
@@ -32,12 +33,43 @@ namespace Chores.Tests
 
             // Act
             choreCon.Get();
-            choreCon.Update(testChore);
-            choreCon.Create(testChore);
+            choreCon.Update(_testChore);
+            choreCon.Add(_testChore);
             choreCon.Delete(1);
 
             // Assert
             Assert.That(_db.Invocations.Count, Is.EqualTo(4));
         }
+
+        [Test]
+        public void Should_Update_Next_Due_Date_On_Completion()
+        {
+            // Arrange
+            Mock<IDBInterface> _db = new();
+            Chore completedChore = new Chore();
+
+            _db
+                .Setup(m => m.EditChore(_testChore))
+                .Callback((Chore x) => completedChore = x);
+
+            ChoreController choreCon = new(_logger.Object, _db.Object);
+
+            // Act
+            choreCon.MarkCompleted(_testChore);
+
+            // Assert
+            Assert.That(completedChore.NextDueDate.Date, Is.EqualTo(DateTime.Now.AddDays(7).Date));
+        }
+
+        public void Should_Create_Due_Date_On_Chore_Add()
+        {
+
+        }
+
+        public void Should_Update_Due_Date_On_Chore_Update()
+        {
+
+        }
+
     }
 }

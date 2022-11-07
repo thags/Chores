@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Xml.Linq;
 using Chores.Interfaces;
 using Chores.Models;
 using Microsoft.Data.Sqlite;
@@ -21,7 +22,14 @@ namespace Chores.Controllers
                 using (var command = connection.CreateCommand())
                 {
                     connection.Open();
-                    command.CommandText = @"CREATE TABLE IF NOT EXISTS chores(id INTEGER PRIMARY KEY, Name TEXT, Notes TEXT, CompletionDate DATETIME);";
+                    command.CommandText = @"CREATE TABLE IF NOT EXISTS chores(
+                        id INTEGER PRIMARY KEY, 
+                        Name TEXT, 
+                        Notes TEXT, 
+                        CompletionDate DATETIME,
+                        NextDueDate DATETIME,
+                        Recurrence TIMESPAN
+                        );";
                     try
                     {
                         command.ExecuteNonQuery();
@@ -36,7 +44,7 @@ namespace Chores.Controllers
 
         public List<Chore> GetAllChores()
         {
-            List<Chore> drives = new List<Chore>();
+            List<Chore> chores = new List<Chore>();
             using (var connection = new SqliteConnection(ConnectionString))
             {
                 using (var command = connection.CreateCommand())
@@ -49,19 +57,21 @@ namespace Chores.Controllers
                     {
                         while (reader.Read())
                         {
-                            drives.Add(
+                            chores.Add(
                                 new Chore
                                 {
                                     Id = reader.GetInt32(0),
                                     Name = reader.GetString(1),
                                     Note = reader.GetString(2),
-                                    CompletionDate = reader.GetDateTime(3)
+                                    CompletionDate = reader.GetDateTime(3),
+                                    NextDueDate = reader.GetDateTime(4),
+                                    Recurrence = reader.GetTimeSpan(5)
                                 });
                         }
                     }
                 }
             }
-            return drives;
+            return chores;
         }
 
         public void AddChore(Chore newChore)
@@ -71,7 +81,14 @@ namespace Chores.Controllers
                 using (var command = connection.CreateCommand())
                 {
                     connection.Open();
-                    command.CommandText = $"INSERT INTO chores(Name, Notes, CompletionDate) VALUES('{newChore.Name}','{newChore.Note}', '{newChore.CompletionDate}')";
+                    command.CommandText = $@"INSERT INTO chores(Name, Notes, CompletionDate, NextDueDate, Recurrence) 
+                        VALUES(
+                        '{newChore.Name}', 
+                        '{newChore.Note}', 
+                        '{newChore.CompletionDate}', 
+                        '{newChore.NextDueDate}', 
+                        '{newChore.Recurrence}'
+                        )";
 
                     try
                     {
@@ -92,7 +109,13 @@ namespace Chores.Controllers
                 using (var command = connection.CreateCommand())
                 {
                     connection.Open();
-                    command.CommandText = $"UPDATE chores SET Name = '{editedChore.Name}', Notes = '{editedChore.Note}', CompletionDate='{editedChore.CompletionDate}' WHERE Id = '{editedChore.Id}'";
+                    command.CommandText = $@"UPDATE chores SET 
+                        Name = '{editedChore.Name}', 
+                        Notes = '{editedChore.Note}', 
+                        CompletionDate='{editedChore.CompletionDate}' 
+                        NextDueDate = '{editedChore.NextDueDate}' 
+                        Recurrence = '{editedChore.Recurrence}'
+                        WHERE Id = '{editedChore.Id}'";
 
                     try
                     {
@@ -125,6 +148,34 @@ namespace Chores.Controllers
                     }
                 }
             }
+        }
+
+        public Chore GetChore(int id)
+        {
+            Chore chore = new Chore();
+            using (var connection = new SqliteConnection(ConnectionString))
+            {
+                using (var command = connection.CreateCommand())
+                {
+                    connection.Open();
+                    command.CommandText = $"SELECT 1 FROM 'chores' where Id = {id}";
+
+
+                    using (var reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            chore.Id = reader.GetInt32(0);
+                            chore.Name = reader.GetString(1);
+                            chore.Note = reader.GetString(2);
+                            chore.CompletionDate = reader.GetDateTime(3);
+                            chore.NextDueDate = reader.GetDateTime(4);
+                            chore.Recurrence = reader.GetTimeSpan(5);
+                        }
+                    }
+                }
+            }
+            return chore;
         }
     }
 }
