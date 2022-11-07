@@ -1,0 +1,8 @@
+{
+"SpaProxyServer": {
+"ServerUrl": "https://localhost:44493",
+"LaunchCommand": "npm start",
+"WorkingDirectory": "C:\\Users\\thagstrom\\source\\repos\\Chores\\Chores.App\\ClientApp\\",
+"MaxTimeoutInSeconds": "120"
+}
+}
