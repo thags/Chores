@@ -42,26 +42,6 @@ namespace Chores.Tests
         }
 
         [Test]
-        public void Should_Update_Next_Due_Date_On_Completion()
-        {
-            // Arrange
-            Mock<IDBInterface> _db = new();
-            Chore completedChore = new Chore();
-
-            _db
-                .Setup(m => m.EditChore(_testChore))
-                .Callback((Chore x) => completedChore = x);
-
-            ChoreController choreCon = new(_logger.Object, _db.Object);
-
-            // Act
-            choreCon.MarkCompleted(_testChore);
-
-            // Assert
-            Assert.That(completedChore.NextDueDate?.Date, Is.EqualTo(DateTime.Now.AddDays(7).Date));
-        }
-
-        [Test]
         public void Should_Create_Due_Date_On_Chore_Add()
         {
             // Arrange

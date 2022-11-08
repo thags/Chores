@@ -50,14 +50,6 @@ public class ChoreController : ControllerBase
         _choreDB.EditChore(updatedChore);
     }
 
-    [HttpPut]
-    public void MarkCompleted(Chore completedChore)
-    {
-        completedChore = SetCompletionDateToToday(completedChore);
-        completedChore = UpdateNextDueDate(completedChore);
-        _choreDB.EditChore(completedChore);
-    }
-
     private Chore UpdateNextDueDate(Chore chore)
     {
         chore.NextDueDate = chore.CompletionDate.Add((TimeSpan)chore.Recurrence);
