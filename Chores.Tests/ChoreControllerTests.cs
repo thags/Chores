@@ -58,18 +58,47 @@ namespace Chores.Tests
             choreCon.MarkCompleted(_testChore);
 
             // Assert
-            Assert.That(completedChore.NextDueDate.Date, Is.EqualTo(DateTime.Now.AddDays(7).Date));
+            Assert.That(completedChore.NextDueDate?.Date, Is.EqualTo(DateTime.Now.AddDays(7).Date));
         }
 
+        [Test]
         public void Should_Create_Due_Date_On_Chore_Add()
         {
+            // Arrange
+            Mock<IDBInterface> _db = new();
+            Chore completedChore = new Chore();
 
+            _db
+                .Setup(m => m.AddChore(_testChore))
+                .Callback((Chore x) => completedChore = x);
+
+            ChoreController choreCon = new(_logger.Object, _db.Object);
+
+            // Act
+            choreCon.Add(_testChore);
+
+            // Assert
+            Assert.That(completedChore.NextDueDate?.Date, Is.EqualTo(DateTime.Now.AddDays(7).Date));
         }
 
-        public void Should_Update_Due_Date_On_Chore_Update()
+        [Test]
+        public void Should_Update_Due_Date_On_Chore_Edit()
         {
+            // Arrange
+            Mock<IDBInterface> _db = new();
+            Chore completedChore = new Chore();
 
+            _db
+                .Setup(m => m.EditChore(_testChore))
+                .Callback((Chore x) => completedChore = x);
+
+            ChoreController choreCon = new(_logger.Object, _db.Object);
+
+            // Act
+            choreCon.Update(_testChore);
+
+            // Assert
+            Assert.That(completedChore.NextDueDate?.Date, Is.EqualTo(DateTime.Now.AddDays(7).Date));
         }
-
     }
 }

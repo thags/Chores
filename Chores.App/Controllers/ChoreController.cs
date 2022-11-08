@@ -24,8 +24,8 @@ public class ChoreController : ControllerBase
         return _choreDB.GetAllChores();
     }
 
-    [HttpGet("GetById/{id}")]
-    public Chore Get(int id)
+    [HttpGet("{id}")]
+    public Chore GetById(int id)
     {
         return _choreDB.GetChore(id);
     }
@@ -39,28 +39,35 @@ public class ChoreController : ControllerBase
     [HttpPost]
     public void Add(Chore newChore)
     {
-        newChore.NextDueDate = UpdateNextDueDate(newChore);
+        newChore = UpdateNextDueDate(newChore);
         _choreDB.AddChore(newChore);
     }
 
     [HttpPut]
     public void Update(Chore updatedChore)
     {
-        updatedChore.NextDueDate = UpdateNextDueDate(updatedChore);
+        updatedChore = UpdateNextDueDate(updatedChore);
         _choreDB.EditChore(updatedChore);
     }
 
     [HttpPut]
     public void MarkCompleted(Chore completedChore)
     {
-        completedChore.CompletionDate = DateTime.Today;
-        completedChore.NextDueDate = UpdateNextDueDate(completedChore);
+        completedChore = SetCompletionDateToToday(completedChore);
+        completedChore = UpdateNextDueDate(completedChore);
         _choreDB.EditChore(completedChore);
     }
 
-    private DateTime UpdateNextDueDate(Chore chore)
+    private Chore UpdateNextDueDate(Chore chore)
     {
-        return DateTime.Now.Add((TimeSpan)chore.Recurrence);
+        chore.NextDueDate = chore.CompletionDate.Add((TimeSpan)chore.Recurrence);
+        return chore;
+    }
+
+    private Chore SetCompletionDateToToday(Chore chore, int dayOffset = 0)
+    {
+        chore.CompletionDate = DateTime.Today.AddDays(dayOffset);
+        return chore;
     }
 }
 

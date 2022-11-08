@@ -158,7 +158,7 @@ namespace Chores.Controllers
                 using (var command = connection.CreateCommand())
                 {
                     connection.Open();
-                    command.CommandText = $"SELECT 1 FROM 'chores' where Id = {id}";
+                    command.CommandText = $"SELECT * FROM chores where Id = {id}";
 
 
                     using (var reader = command.ExecuteReader())
