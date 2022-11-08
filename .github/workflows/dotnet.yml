@@ -20,9 +20,12 @@ jobs:
       with:
         dotnet-version: 6.0.x
     
-    - name: Restore dependencies
+    - name: Restore dependencies on App
       run: dotnet restore ./Chores.App/Chores.csproj
     
+    - name: Restore dependencies on Tests
+      run: dotnet restore ./Chores.Tests/Chores.Tests.csproj
+
     - name: Build
       run: dotnet build --no-restore
     
