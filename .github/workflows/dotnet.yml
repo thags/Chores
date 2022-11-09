@@ -5,7 +5,7 @@ name: .NET
 
 on:
   push:
-    branches: [ "main" ]
+    branches: main
 
 jobs:
   build:
@@ -21,10 +21,7 @@ jobs:
         dotnet-version: 6.0.x
     
     - name: Restore dependencies on App
-      run: dotnet restore ./Chores.App/Chores.csproj
-    
-    - name: Restore dependencies on Tests
-      run: dotnet restore ./Chores.Tests/Chores.Tests.csproj
+      run: dotnet restore
 
     - name: Build
       run: dotnet build --no-restore
