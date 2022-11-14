@@ -1,26 +1,21 @@
 ﻿using Chores.Controllers;
 using Chores.Interfaces;
+using Chores.Models;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
-var sqlController = new sqliteController();
-sqlController.CreateTables();
-//sqlController.AddChore(new Chores.Models.Chore
-//{
-//    Name = "test",
-//    Note = "None",
-//    CompletionDate = DateTime.Today,
-//    NextDueDate = DateTime.Today.AddDays(7),
-//    Recurrence = TimeSpan.FromDays(7)
-//}); ;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
 builder.Services.AddControllersWithViews();
-builder.Services.AddTransient<IDBInterface, sqliteController>();
+builder.Services.AddDbContext<DataContext>(opt =>
+{
+    opt.UseSqlite("Data Source=data.db");
+});
 
 var app = builder.Build();
 
@@ -34,7 +29,6 @@ if (!app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
-
 
 app.MapControllerRoute(
     name: "default",

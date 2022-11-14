@@ -27,7 +27,7 @@ export class FetchData extends Component {
         <tbody>
           {chores.map(chore =>
               <tr key={chore.id}>
-                  <td>{chore.name}</td>
+                  <td><input value={chore.name} type="text"/></td>
                   <td>{chore.note}</td>
                   <td>{chore.completionDate}</td>
                   <td>{chore.nextDueDate}</td>

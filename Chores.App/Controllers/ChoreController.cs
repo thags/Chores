@@ -8,46 +8,50 @@ namespace Chores.Controllers;
 [Route("[controller]")]
 public class ChoreController : ControllerBase
 {
-    private IDBInterface _choreDB;
+    private DataContext _choreDB;
 
     private readonly ILogger<ChoreController> _logger;
 
-    public ChoreController(ILogger<ChoreController> logger, IDBInterface choreDB)
+    public ChoreController(ILogger<ChoreController> logger, DataContext db)
     {
         _logger = logger;
-        _choreDB = choreDB;
+        _choreDB = db;
     }
 
     [HttpGet]
     public List<Chore> Get()
     {
-        return _choreDB.GetAllChores();
+        return _choreDB.Chores.ToList();
     }
 
     [HttpGet("{id}")]
     public Chore GetById(int id)
     {
-        return _choreDB.GetChore(id);
+        return _choreDB.Chores.FirstOrDefault<Chore>(chore => chore.Id == id);
     }
 
     [HttpDelete]
-    public void Delete(int id)
+    public void Delete(Chore choreToRemove)
     {
-        _choreDB.DeleteChore(id);
+        _choreDB.Remove(choreToRemove);
+        _choreDB.SaveChanges();
     }
 
     [HttpPost]
     public void Add(Chore newChore)
     {
+        
         newChore = UpdateNextDueDate(newChore);
-        _choreDB.AddChore(newChore);
+        _choreDB.Add(newChore);
+        _choreDB.SaveChanges();
     }
 
     [HttpPut]
     public void Update(Chore updatedChore)
     {
         updatedChore = UpdateNextDueDate(updatedChore);
-        _choreDB.EditChore(updatedChore);
+        _choreDB.Update(updatedChore);
+        _choreDB.SaveChanges();
     }
 
     private Chore UpdateNextDueDate(Chore chore)
