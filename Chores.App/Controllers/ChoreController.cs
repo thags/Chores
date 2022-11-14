@@ -1,5 +1,6 @@
 ﻿using Chores.Interfaces;
 using Chores.Models;
+using Chores.Repositories;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Chores.Controllers;
@@ -19,15 +20,15 @@ public class ChoreController : ControllerBase
     }
 
     [HttpGet]
-    public List<Chore> Get()
+    public IEnumerable<Chore> Get()
     {
-        return _choreDB.Chores.ToList();
+        return (IEnumerable<Chore>)_choreDB.Chores;
     }
 
     [HttpGet("{id}")]
     public Chore GetById(int id)
     {
-        return _choreDB.Chores.FirstOrDefault<Chore>(chore => chore.Id == id);
+        return _choreDB.Find<Chore>(id);
     }
 
     [HttpDelete]

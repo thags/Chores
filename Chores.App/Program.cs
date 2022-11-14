@@ -1,6 +1,4 @@
-﻿using Chores.Controllers;
-using Chores.Interfaces;
-using Chores.Models;
+﻿using Chores.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;

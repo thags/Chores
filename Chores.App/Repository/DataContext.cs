@@ -1,7 +1,8 @@
 ﻿using System;
+using Chores.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace Chores.Models
+namespace Chores.Repositories
 {
     public class DataContext : DbContext
     {
