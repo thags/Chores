@@ -4,9 +4,9 @@ namespace Chores.Extensions
 {
     public static class ChoreExtensions
     {
-        public static Chore SetCompleteAndUpdateDueDate(this Chore chore)
+        public static Chore SetCompleteAndUpdateDueDate(this Chore chore, DateTime? completionDate = null)
         {
-            chore.SetCompletionDate(DateTime.Now);
+            chore.SetCompletionDate(completionDate);
             chore.UpdateDueDate();
             return chore;
         }
