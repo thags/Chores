@@ -1,4 +1,6 @@
-﻿using Chores.Repositories;
+﻿using Chores.Interfaces;
+using Chores.Repositories;
+using Chores.Repository;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -14,6 +16,7 @@ builder.Services.AddDbContext<DataContext>(opt =>
 {
     opt.UseSqlite("Data Source=data.db");
 });
+builder.Services.AddTransient<IChoreDB, ChoreEntityFramework>();
 
 var app = builder.Build();
 
