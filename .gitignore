@@ -6,6 +6,7 @@
 *.user
 *.userosscache
 *.sln.docstates
+data.db*
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
@@ -240,3 +241,4 @@ _Pvt_Extensions
 # FAKE - F# Make
 .fake/
 
+*.db

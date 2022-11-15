@@ -8,58 +8,50 @@ namespace Chores.Controllers;
 [Route("[controller]")]
 public class ChoreController : ControllerBase
 {
-    private IDBInterface _choreDB;
+    private IChoreDB _choreRepo;
 
     private readonly ILogger<ChoreController> _logger;
 
-    public ChoreController(ILogger<ChoreController> logger, IDBInterface choreDB)
+    public ChoreController(ILogger<ChoreController> logger, IChoreDB repo)
     {
         _logger = logger;
-        _choreDB = choreDB;
+        _choreRepo = repo;
     }
 
     [HttpGet]
-    public List<Chore> Get()
+    public IEnumerable<Chore> Get()
     {
-        return _choreDB.GetAllChores();
+        return _choreRepo.Get();
     }
 
     [HttpGet("{id}")]
     public Chore GetById(int id)
     {
-        return _choreDB.GetChore(id);
+        return _choreRepo.GetById(id);
     }
 
     [HttpDelete]
-    public void Delete(int id)
+    public void Delete(Chore choreToRemove)
     {
-        _choreDB.DeleteChore(id);
+        _choreRepo.Delete(choreToRemove);
+    }
+
+    [HttpDelete]
+    public void DeleteById(int id)
+    {
+        _choreRepo.DeleteById(id);
     }
 
     [HttpPost]
     public void Add(Chore newChore)
     {
-        newChore = UpdateNextDueDate(newChore);
-        _choreDB.AddChore(newChore);
+        _choreRepo.Add(newChore);
     }
 
     [HttpPut]
     public void Update(Chore updatedChore)
     {
-        updatedChore = UpdateNextDueDate(updatedChore);
-        _choreDB.EditChore(updatedChore);
-    }
-
-    private Chore UpdateNextDueDate(Chore chore)
-    {
-        chore.NextDueDate = chore.CompletionDate.Add((TimeSpan)chore.Recurrence);
-        return chore;
-    }
-
-    private Chore SetCompletionDateToToday(Chore chore, int dayOffset = 0)
-    {
-        chore.CompletionDate = DateTime.Today.AddDays(dayOffset);
-        return chore;
+        _choreRepo.Update(updatedChore);
     }
 }
 
