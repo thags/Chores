@@ -2,11 +2,9 @@
 using Chores.Models;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Chores.Controllers;
+namespace Chores.ApiControllers;
 
-[ApiController]
-[Route("[controller]")]
-public class ChoreController : ControllerBase
+public class ChoreController : BaseApiController
 {
     private IChoreDB _choreRepo;
 
