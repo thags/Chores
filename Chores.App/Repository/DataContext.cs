@@ -2,7 +2,7 @@
 using Chores.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace Chores.Repositories
+namespace Chores.Repository
 {
     public class DataContext : DbContext
     {

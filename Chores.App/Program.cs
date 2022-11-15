@@ -1,5 +1,4 @@
 ﻿using Chores.Interfaces;
-using Chores.Repositories;
 using Chores.Repository;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
