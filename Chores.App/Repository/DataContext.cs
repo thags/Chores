@@ -1,5 +1,4 @@
-﻿using System;
-using Chores.Models;
+﻿using Chores.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace Chores.Repository
