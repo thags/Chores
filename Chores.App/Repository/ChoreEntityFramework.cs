@@ -1,7 +1,6 @@
 ﻿using Chores.Extensions;
 using Chores.Interfaces;
 using Chores.Models;
-using Chores.Repositories;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Chores.Repository
